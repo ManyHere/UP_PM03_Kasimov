@@ -1,22 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-Главная точка входа сервиса поиска попутчиков (Версия 1.0 - Консольный режим).
-Предоставляет текстовый интерфейс для просмотра поездок, бронирования мест,
-добавления маршрутов и проведения вычислительного эксперимента.
+Главная точка входа программного комплекса «Сервис поиска попутчиков» (Версия 2.0).
+По умолчанию запускает современный графический интерфейс пользователя (GUI).
+При передаче аргумента командной строки '--cli' запускает консольный режим.
+
+Специальность: 09.02.07 Информационные системы и программирование
+Студент: Касимов Д.А. (Группа ИСП 31-9)
 """
 
 import sys
 import os
+
 from database import init_database, get_all_trips, add_trip, book_seat, save_experiment
 from experiment import calculate_total_trip_cost, calculate_cost_sharing, run_experiment_grid
 
-def print_header():
+def print_cli_header():
     print("=" * 70)
-    print("       СЕРВИС ПОИСКА ПОПУТЧИКОВ (Версия 1.0 - Консольный режим)")
+    print("       СЕРВИС ПОИСКА ПОПУТЧИКОВ (Режим CLI / Консоль)")
+    print("       Разработчик: Касимов Д.А., гр. ИСП 31-9")
     print("=" * 70)
 
-def show_trips():
-    print("\n--- СПИСОК ДОСТУПНЫХ ПОЕЗДОК СО СВОБОДНЫМИ МЕСТАМИ ---")
+def show_trips_cli():
+    print("\n--- СПИСОК ДОСТУПНЫХ ПОЕЗДОК (АКТИВНЫЕ МАРШРУТЫ) ---")
     trips = get_all_trips()
     if not trips:
         print("На данный момент нет доступных поездок со свободными местами.")
@@ -30,26 +35,26 @@ def show_trips():
         dt = f"{t_date} {t_time}"
         print(f"{t_id:<4} | {route:<28} | {dt:<16} | {seats:<5} | {price:<10.1f} | {drv_name} ({car})")
 
-def handle_booking():
-    show_trips()
-    print("\n--- БРОНИРОВАНИЕ МЕСТА В ПОЕЗДКЕ ---")
+def handle_booking_cli():
+    show_trips_cli()
+    print("\n--- ОФОРМЛЕНИЕ БРОНИРОВАНИЯ ---")
     try:
         trip_id = int(input("Введите ID выбранной поездки: ").strip())
         name = input("Введите ваше имя: ").strip()
-        phone = input("Введите ваш телефон: ").strip()
-        seats = int(input("Количество мест для бронирования (1-4): ").strip())
+        phone = input("Введите контактный телефон: ").strip()
+        seats = int(input("Количество мест (1-4): ").strip())
         
         booking_id, total_cost = book_seat(trip_id, name, phone, seats)
-        print("\n[УСПЕХ] Бронирование успешно подтверждено!")
-        print(f"Номер брони: #{booking_id}")
+        print("\n[УСПЕХ] Бронирование успешно оформлено!")
+        print(f"Номер заявки: #{booking_id}")
         print(f"Пассажир: {name} ({phone})")
         print(f"Забронировано мест: {seats}")
         print(f"К оплате водителю: {total_cost:.2f} руб.")
     except Exception as e:
         print(f"[ОШИБКА] Не удалось оформить бронирование: {e}")
 
-def handle_add_trip():
-    print("\n--- ДОБАВЛЕНИЕ НОВОЙ ПОЕЗДКИ ВОДИТЕЛЯ ---")
+def handle_add_trip_cli():
+    print("\n--- ПУБЛИКАЦИЯ НОВОЙ ПОЕЗДКИ ---")
     try:
         driver = input("ФИО водителя: ").strip()
         phone = input("Телефон: ").strip()
@@ -58,71 +63,79 @@ def handle_add_trip():
         to_c = input("Город назначения: ").strip()
         t_date = input("Дата поездки (ГГГГ-ММ-ДД): ").strip()
         t_time = input("Время отправления (ЧЧ:ММ): ").strip()
-        seats = int(input("Всего свободных мест: ").strip())
+        seats = int(input("Всего мест: ").strip())
         dist = float(input("Расстояние между городами (км): ").strip())
         price = float(input("Стоимость за 1 место (руб): ").strip())
         
         trip_id = add_trip(driver, phone, car, from_c, to_c, t_date, t_time, seats, dist, price)
-        print(f"\n[УСПЕХ] Поездка #{trip_id} успешно опубликована и доступна для поиска!")
+        print(f"\n[УСПЕХ] Поездка #{trip_id} успешно опубликована!")
     except Exception as e:
         print(f"[ОШИБКА] Не удалось добавить поездку: {e}")
 
-def handle_experiment():
-    print("\n--- ВЫЧИСЛИТЕЛЬНЫЙ ЭКСПЕРИМЕНТ: СЕБЕСТОИМОСТЬ И ЭКОНОМИЯ ПОЕЗДКИ ---")
+def handle_experiment_cli():
+    print("\n--- ВЫЧИСЛИТЕЛЬНЫЙ ЭКСПЕРИМЕНТ: РАСПРЕДЕЛЕНИЕ РАСХОДОВ И ЭКОНОМИЯ ---")
     try:
         route_name = input("Наименование маршрута (например, Ижевск - Казань): ").strip()
-        dist = float(input("Расстояние маршрута (км, например 390): ").strip())
-        consumption = float(input("Средний расход топлива (л/100 км, по умолчанию 8.5): ") or 8.5)
-        fuel_price = float(input("Цена бензина за литр (руб/л, по умолчанию 58.5): ") or 58.5)
-        deprec = float(input("Норма амортизации на 1 км (руб/км, по умолчанию 1.8): ") or 1.8)
+        dist = float(input("Дистанция (км): ").strip())
+        consumption = float(input("Средний расход топлива (л/100 км, по умолч. 8.5): ") or 8.5)
+        fuel_price = float(input("Цена бензина (руб/л, по умолч. 58.5): ") or 58.5)
+        deprec = float(input("Амортизация (руб/км, по умолч. 1.8): ") or 1.8)
         
         total_cost = calculate_total_trip_cost(dist, consumption, fuel_price, deprec)
         grid = run_experiment_grid(dist, consumption, fuel_price, deprec)
         
-        print("\n" + "=" * 75)
-        print(f"РЕЗУЛЬТАТЫ ЭКСПЕРИМЕНТА ДЛЯ МАРШРУТА: {route_name.upper()} ({dist} км)")
-        print(f"Полная себестоимость поездки (топливо + амортизация): {total_cost:.2f} руб.")
-        print("=" * 75)
-        print(f"{'Попутчиков':<12} | {'Всего людей':<12} | {'Доля на чел. (руб)':<20} | {'Экономия водителя (руб)':<22} | {'Покрытие затрат'}")
-        print("-" * 75)
+        print("\n" + "=" * 78)
+        print(f"РЕЗУЛЬТАТЫ ЭКСПЕРИМЕНТА: {route_name.upper()} ({dist} км)")
+        print(f"Полная себестоимость поездки: {total_cost:.2f} руб.")
+        print("=" * 78)
+        print(f"{'Попутчиков':<12} | {'Всего в авто':<14} | {'Доля на чел. (руб)':<20} | {'Экономия водителя':<18} | {'Покрытие'}")
+        print("-" * 78)
+        for row in grid:
+            print(f"{row['passengers_count']:<12} | {row['total_persons']:<14} | {row['cost_per_person']:<20.2f} | {row['driver_savings']:<18.2f} | {row['coverage_percent']}%")
+        print("=" * 78)
         
         for row in grid:
-            print(f"{row['passengers_count']:<12} | {row['total_persons']:<12} | {row['cost_per_person']:<20.2f} | {row['driver_savings']:<22.2f} | {row['coverage_percent']}%")
-        print("=" * 75)
-        
-        # Сохранение в БД SQLite
-        for row in grid:
-            save_experiment(route_name, dist, consumption, fuel_price, deprec, row['passengers_count'], row['total_cost'], row['cost_per_person'], row['driver_savings'])
-        print("[ИНФОРМАЦИЯ] Данные вычислительного эксперимента успешно сохранены в SQLite (cost_experiments).")
-        
+            save_experiment(route_name, dist, consumption, fuel_price, deprec, row['passengers_count'], row['total_cost'], row['cost_per_person'], row['driver_savings'], row['annual_savings'])
+        print("[ИНФОРМАЦИЯ] Данные вычислительного эксперимента успешно сохранены в БД SQLite.")
     except Exception as e:
-        print(f"[ОШИБКА] Ошибка при проведении эксперимента: {e}")
+        print(f"[ОШИБКА] Ошибка эксперимента: {e}")
 
-def main():
+def run_cli():
     init_database()
     while True:
-        print_header()
+        print_cli_header()
         print("1. Показать список доступных поездок")
         print("2. Забронировать место в поездке")
-        print("3. Опубликовать новую поездку (для водителей)")
-        print("4. Провести вычислительный эксперимент (расчет себестоимости и экономии)")
+        print("3. Опубликовать новую поездку")
+        print("4. Провести вычислительный эксперимент")
         print("5. Выход из программы")
         choice = input("\nВыберите действие (1-5): ").strip()
         
         if choice == "1":
-            show_trips()
+            show_trips_cli()
         elif choice == "2":
-            handle_booking()
+            handle_booking_cli()
         elif choice == "3":
-            handle_add_trip()
+            handle_add_trip_cli()
         elif choice == "4":
-            handle_experiment()
+            handle_experiment_cli()
         elif choice == "5":
-            print("\nЗавершение работы программы. До свидания!")
+            print("\nЗавершение работы программы.")
             break
         else:
-            print("\nНекорректный выбор. Пожалуйста, введите число от 1 до 5.")
+            print("\nНекорректный ввод.")
         input("\nНажмите Enter для продолжения...")
+
+def main():
+    if "--cli" in sys.argv:
+        run_cli()
+    else:
+        try:
+            from gui import start_gui
+            start_gui()
+        except Exception as e:
+            print(f"[ПРЕДУПРЕЖДЕНИЕ] Не удалось запустить графический интерфейс ({e}). Переход в консольный режим.")
+            run_cli()
 
 if __name__ == "__main__":
     main()
