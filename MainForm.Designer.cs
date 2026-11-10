@@ -16,283 +16,497 @@ partial class MainForm
 
     private Panel pnlHeader = null!;
     private Label lblTitle = null!;
-    private Label lblSubtitle = null!;
-    private GroupBox grpSearch = null!;
-    private Label lblFrom = null!;
+    private Label lblUserBadge = null!;
+    private Button btnSwitchUser = null!;
+    private TabControl tabMain = null!;
+    private TabPage tabSearch = null!;
+    private TabPage tabPublish = null!;
+    private TabPage tabExperiment = null!;
+    private TabPage tabManage = null!;
+
+    // Tab 1: Search & Book
+    private GroupBox grpFilter = null!;
     private TextBox txtFilterFrom = null!;
-    private Label lblTo = null!;
     private TextBox txtFilterTo = null!;
     private Button btnSearch = null!;
     private Button btnReset = null!;
     private DataGridView dgvTrips = null!;
-    private GroupBox grpAddTrip = null!;
-    private TextBox txtDriver = null!;
-    private TextBox txtPhone = null!;
-    private TextBox txtCar = null!;
-    private TextBox txtAddFrom = null!;
-    private TextBox txtAddTo = null!;
-    private TextBox txtDate = null!;
-    private TextBox txtTime = null!;
-    private NumericUpDown numSeats = null!;
-    private TextBox txtAddDist = null!;
-    private TextBox txtAddPrice = null!;
-    private Button btnAddTrip = null!;
-    private GroupBox grpExperiment = null!;
+    private GroupBox grpBook = null!;
+    private Label lblSelectedTrip = null!;
+    private TextBox txtBookName = null!;
+    private TextBox txtBookPhone = null!;
+    private NumericUpDown numBookSeats = null!;
+    private Button btnBookSeat = null!;
+
+    // Tab 2: Publish Trip
+    private GroupBox grpPublishCard = null!;
+    private TextBox txtPubDriver = null!;
+    private TextBox txtPubPhone = null!;
+    private TextBox txtPubCar = null!;
+    private TextBox txtPubFrom = null!;
+    private TextBox txtPubTo = null!;
+    private TextBox txtPubDate = null!;
+    private TextBox txtPubTime = null!;
+    private NumericUpDown numPubSeats = null!;
+    private TextBox txtPubDist = null!;
+    private TextBox txtPubPrice = null!;
+    private Button btnPublishTrip = null!;
+    private Button btnFillSample = null!;
+
+    // Tab 3: Experiment
+    private GroupBox grpExpParams = null!;
     private TextBox txtExpRoute = null!;
     private TextBox txtExpDist = null!;
     private TextBox txtExpCons = null!;
     private TextBox txtExpFuelPrice = null!;
     private TextBox txtExpDeprec = null!;
-    private NumericUpDown numExpPassengers = null!;
-    private Button btnCalcExperiment = null!;
-    private Label lblExpOutput = null!;
+    private TextBox txtExpTripsYear = null!;
+    private Button btnRunExp = null!;
+    private Label lblExpSummary = null!;
+    private DataGridView dgvExpGrid = null!;
+    private Button btnSaveExp = null!;
+
+    // Tab 4: Bookings, Audit & Export
+    private Panel pnlManageTop = null!;
+    private Button btnRefreshManage = null!;
+    private Button btnCancelBooking = null!;
+    private Button btnExportTrips = null!;
+    private Button btnExportBookings = null!;
+    private SplitContainer splitManage = null!;
+    private DataGridView dgvBookings = null!;
+    private DataGridView dgvAudit = null!;
+
     private StatusStrip statusStrip1 = null!;
     private ToolStripStatusLabel lblStatus = null!;
 
     private void InitializeComponent()
     {
         pnlHeader = new Panel();
-        lblSubtitle = new Label();
         lblTitle = new Label();
-        grpSearch = new GroupBox();
-        btnReset = new Button();
-        btnSearch = new Button();
-        txtFilterTo = new TextBox();
-        lblTo = new Label();
+        lblUserBadge = new Label();
+        btnSwitchUser = new Button();
+        tabMain = new TabControl();
+        tabSearch = new TabPage();
+        tabPublish = new TabPage();
+        tabExperiment = new TabPage();
+        tabManage = new TabPage();
+
+        grpFilter = new GroupBox();
         txtFilterFrom = new TextBox();
-        lblFrom = new Label();
+        txtFilterTo = new TextBox();
+        btnSearch = new Button();
+        btnReset = new Button();
         dgvTrips = new DataGridView();
-        grpAddTrip = new GroupBox();
-        btnAddTrip = new Button();
-        txtAddPrice = new TextBox();
-        txtAddDist = new TextBox();
-        numSeats = new NumericUpDown();
-        txtTime = new TextBox();
-        txtDate = new TextBox();
-        txtAddTo = new TextBox();
-        txtAddFrom = new TextBox();
-        txtCar = new TextBox();
-        txtPhone = new TextBox();
-        txtDriver = new TextBox();
-        grpExperiment = new GroupBox();
-        lblExpOutput = new Label();
-        btnCalcExperiment = new Button();
-        numExpPassengers = new NumericUpDown();
-        txtExpDeprec = new TextBox();
-        txtExpFuelPrice = new TextBox();
-        txtExpCons = new TextBox();
-        txtExpDist = new TextBox();
+        grpBook = new GroupBox();
+        lblSelectedTrip = new Label();
+        txtBookName = new TextBox();
+        txtBookPhone = new TextBox();
+        numBookSeats = new NumericUpDown();
+        btnBookSeat = new Button();
+
+        grpPublishCard = new GroupBox();
+        txtPubDriver = new TextBox();
+        txtPubPhone = new TextBox();
+        txtPubCar = new TextBox();
+        txtPubFrom = new TextBox();
+        txtPubTo = new TextBox();
+        txtPubDate = new TextBox();
+        txtPubTime = new TextBox();
+        numPubSeats = new NumericUpDown();
+        txtPubDist = new TextBox();
+        txtPubPrice = new TextBox();
+        btnPublishTrip = new Button();
+        btnFillSample = new Button();
+
+        grpExpParams = new GroupBox();
         txtExpRoute = new TextBox();
+        txtExpDist = new TextBox();
+        txtExpCons = new TextBox();
+        txtExpFuelPrice = new TextBox();
+        txtExpDeprec = new TextBox();
+        txtExpTripsYear = new TextBox();
+        btnRunExp = new Button();
+        lblExpSummary = new Label();
+        dgvExpGrid = new DataGridView();
+        btnSaveExp = new Button();
+
+        pnlManageTop = new Panel();
+        btnRefreshManage = new Button();
+        btnCancelBooking = new Button();
+        btnExportTrips = new Button();
+        btnExportBookings = new Button();
+        splitManage = new SplitContainer();
+        dgvBookings = new DataGridView();
+        dgvAudit = new DataGridView();
+
         statusStrip1 = new StatusStrip();
         lblStatus = new ToolStripStatusLabel();
 
         pnlHeader.SuspendLayout();
-        grpSearch.SuspendLayout();
+        tabMain.SuspendLayout();
+        tabSearch.SuspendLayout();
+        grpFilter.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvTrips).BeginInit();
-        grpAddTrip.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numSeats).BeginInit();
-        grpExperiment.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numExpPassengers).BeginInit();
+        grpBook.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numBookSeats).BeginInit();
+        tabPublish.SuspendLayout();
+        grpPublishCard.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numPubSeats).BeginInit();
+        tabExperiment.SuspendLayout();
+        grpExpParams.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)dgvExpGrid).BeginInit();
+        tabManage.SuspendLayout();
+        pnlManageTop.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)splitManage).BeginInit();
+        splitManage.Panel1.SuspendLayout();
+        splitManage.Panel2.SuspendLayout();
+        splitManage.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)dgvBookings).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)dgvAudit).BeginInit();
         statusStrip1.SuspendLayout();
         SuspendLayout();
 
         // pnlHeader
         pnlHeader.BackColor = Color.FromArgb(30, 58, 95);
-        pnlHeader.Controls.Add(lblSubtitle);
-        pnlHeader.Controls.Add(lblTitle);
         pnlHeader.Dock = DockStyle.Top;
-        pnlHeader.Location = new Point(0, 0);
-        pnlHeader.Name = "pnlHeader";
-        pnlHeader.Size = new Size(1084, 54);
-        pnlHeader.TabIndex = 0;
+        pnlHeader.Size = new Size(1140, 58);
 
         lblTitle.AutoSize = true;
-        lblTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+        lblTitle.Font = new Font("Segoe UI", 13.5F, FontStyle.Bold);
         lblTitle.ForeColor = Color.White;
-        lblTitle.Location = new Point(16, 14);
-        lblTitle.Name = "lblTitle";
-        lblTitle.Size = new Size(540, 25);
-        lblTitle.Text = "СЕРВИС ПОИСКА ПОПУТЧИКОВ — Версия 1.0 (Базовая)";
+        lblTitle.Location = new Point(16, 16);
+        lblTitle.Text = "СЕРВИС ПОИСКА ПОПУТЧИКОВ — Версия 2.0 (Касимов Д.А., ИСП 31-9)";
 
-        lblSubtitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        lblSubtitle.AutoSize = true;
-        lblSubtitle.Font = new Font("Segoe UI", 9.5F);
-        lblSubtitle.ForeColor = Color.LightSteelBlue;
-        lblSubtitle.Location = new Point(820, 18);
-        lblSubtitle.Name = "lblSubtitle";
-        lblSubtitle.Size = new Size(245, 17);
-        lblSubtitle.Text = "Студент: Касимов Д.А. | Группа ИСП 31-9";
+        lblUserBadge.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        lblUserBadge.AutoSize = false;
+        lblUserBadge.TextAlign = ContentAlignment.MiddleRight;
+        lblUserBadge.Font = new Font("Segoe UI", 9.5F);
+        lblUserBadge.ForeColor = Color.LightSteelBlue;
+        lblUserBadge.Location = new Point(660, 17);
+        lblUserBadge.Size = new Size(315, 24);
+        lblUserBadge.Text = "Пользователь: Гость";
 
-        // grpSearch
-        grpSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        grpSearch.Location = new Point(12, 64);
-        grpSearch.Name = "grpSearch";
-        grpSearch.Size = new Size(680, 62);
-        grpSearch.Text = "Фильтр поездок";
+        btnSwitchUser.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnSwitchUser.BackColor = Color.FromArgb(43, 108, 176);
+        btnSwitchUser.FlatStyle = FlatStyle.Flat;
+        btnSwitchUser.FlatAppearance.BorderSize = 0;
+        btnSwitchUser.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        btnSwitchUser.ForeColor = Color.White;
+        btnSwitchUser.Location = new Point(985, 14);
+        btnSwitchUser.Size = new Size(140, 30);
+        btnSwitchUser.Text = "Сменить аккаунт";
+        btnSwitchUser.Click += BtnSwitchUser_Click;
 
-        lblFrom.AutoSize = true;
-        lblFrom.Location = new Point(14, 28);
-        lblFrom.Text = "Откуда:";
-        txtFilterFrom.Location = new Point(72, 25);
-        txtFilterFrom.Size = new Size(140, 23);
+        pnlHeader.Controls.AddRange([lblTitle, lblUserBadge, btnSwitchUser]);
+
+        // tabMain
+        tabMain.Dock = DockStyle.Fill;
+        tabMain.Padding = new Point(12, 6);
+        tabMain.Controls.AddRange([tabSearch, tabPublish, tabExperiment, tabManage]);
+
+        // ==================== TAB 1: SEARCH & BOOK ====================
+        tabSearch.BackColor = Color.FromArgb(247, 249, 252);
+        tabSearch.Padding = new Padding(12);
+        tabSearch.Text = "🔍 Поиск и бронирование";
+
+        grpFilter.Dock = DockStyle.Top;
+        grpFilter.Size = new Size(1100, 66);
+        grpFilter.Text = "Параметры поиска маршрута";
+
+        var lf1 = new Label { AutoSize = true, Text = "Откуда:", Location = new Point(16, 28) };
+        txtFilterFrom.Location = new Point(76, 25);
+        txtFilterFrom.Size = new Size(170, 24);
         txtFilterFrom.Text = "Ижевск";
 
-        lblTo.AutoSize = true;
-        lblTo.Location = new Point(226, 28);
-        lblTo.Text = "Куда:";
-        txtFilterTo.Location = new Point(268, 25);
-        txtFilterTo.Size = new Size(140, 23);
+        var lf2 = new Label { AutoSize = true, Text = "Куда:", Location = new Point(268, 28) };
+        txtFilterTo.Location = new Point(314, 25);
+        txtFilterTo.Size = new Size(170, 24);
 
-        btnSearch.Location = new Point(424, 23);
-        btnSearch.Size = new Size(115, 28);
-        btnSearch.Text = "Найти рейсы";
-        btnSearch.UseVisualStyleBackColor = true;
-        btnSearch.Click += BtnSearch_Click;
+        btnSearch.BackColor = Color.FromArgb(43, 108, 176);
+        btnSearch.FlatStyle = FlatStyle.Flat;
+        btnSearch.ForeColor = Color.White;
+        btnSearch.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+        btnSearch.Location = new Point(506, 22);
+        btnSearch.Size = new Size(140, 30);
+        btnSearch.Text = "🔍 Найти поездки";
+        btnSearch.Click += (_, _) => LoadTrips();
 
-        btnReset.Location = new Point(548, 23);
-        btnReset.Size = new Size(115, 28);
-        btnReset.Text = "Сбросить";
-        btnReset.UseVisualStyleBackColor = true;
-        btnReset.Click += BtnReset_Click;
+        btnReset.Location = new Point(658, 22);
+        btnReset.Size = new Size(145, 30);
+        btnReset.Text = "🔄 Сбросить фильтр";
+        btnReset.Click += (_, _) => { txtFilterFrom.Clear(); txtFilterTo.Clear(); LoadTrips(); };
 
-        grpSearch.Controls.AddRange([lblFrom, txtFilterFrom, lblTo, txtFilterTo, btnSearch, btnReset]);
+        grpFilter.Controls.AddRange([lf1, txtFilterFrom, lf2, txtFilterTo, btnSearch, btnReset]);
 
-        // dgvTrips
-        dgvTrips.AllowUserToAddRows = false;
-        dgvTrips.AllowUserToDeleteRows = false;
-        dgvTrips.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        dgvTrips.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        dgvTrips.BackgroundColor = Color.White;
-        dgvTrips.Location = new Point(12, 134);
-        dgvTrips.MultiSelect = false;
-        dgvTrips.Name = "dgvTrips";
-        dgvTrips.ReadOnly = true;
-        dgvTrips.RowHeadersVisible = false;
-        dgvTrips.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dgvTrips.Size = new Size(680, 480);
+        grpBook.Dock = DockStyle.Bottom;
+        grpBook.Size = new Size(1100, 96);
+        grpBook.Text = "Оформление бронирования для пассажира";
 
-        // grpAddTrip
-        grpAddTrip.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        grpAddTrip.Location = new Point(704, 64);
-        grpAddTrip.Name = "grpAddTrip";
-        grpAddTrip.Size = new Size(368, 282);
-        grpAddTrip.Text = "Добавить новую поездку (БД SQLite)";
+        lblSelectedTrip.AutoSize = true;
+        lblSelectedTrip.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        lblSelectedTrip.ForeColor = Color.FromArgb(43, 108, 176);
+        lblSelectedTrip.Location = new Point(16, 24);
+        lblSelectedTrip.Text = "Выберите поездку из таблицы выше для бронирования места.";
 
-        AddFormRow(grpAddTrip, "Водитель:", txtDriver, 24, "Касимов Дмитрий");
-        AddFormRow(grpAddTrip, "Телефон:", txtPhone, 52, "+7 (912) 850-12-34");
-        AddFormRow(grpAddTrip, "Автомобиль:", txtCar, 80, "Lada Vesta");
-        AddFormRow(grpAddTrip, "Откуда:", txtAddFrom, 108, "Ижевск");
-        AddFormRow(grpAddTrip, "Куда:", txtAddTo, 136, "Сарапул");
-        AddFormRow(grpAddTrip, "Дата / Время:", txtDate, 164, "2026-11-15", 105);
-        txtTime.Location = new Point(236, 161);
-        txtTime.Size = new Size(116, 23);
-        txtTime.Text = "10:00";
-        grpAddTrip.Controls.Add(txtTime);
+        var lb1 = new Label { AutoSize = true, Text = "ФИО пассажира:", Location = new Point(16, 56) };
+        txtBookName.Location = new Point(132, 53);
+        txtBookName.Size = new Size(215, 24);
 
-        var lblSeats = new Label { AutoSize = true, Text = "Мест / Км / Цена:", Location = new Point(12, 194) };
-        numSeats.Location = new Point(125, 191);
-        numSeats.Minimum = 1;
-        numSeats.Maximum = 8;
-        numSeats.Value = 3;
-        numSeats.Size = new Size(50, 23);
+        var lb2 = new Label { AutoSize = true, Text = "Телефон:", Location = new Point(364, 56) };
+        txtBookPhone.Location = new Point(432, 53);
+        txtBookPhone.Size = new Size(165, 24);
 
-        txtAddDist.Location = new Point(182, 191);
-        txtAddDist.Size = new Size(80, 23);
-        txtAddDist.Text = "65";
+        var lb3 = new Label { AutoSize = true, Text = "Кол-во мест:", Location = new Point(615, 56) };
+        numBookSeats.Location = new Point(710, 53);
+        numBookSeats.Size = new Size(58, 24);
+        numBookSeats.Minimum = 1;
+        numBookSeats.Maximum = 4;
+        numBookSeats.Value = 1;
 
-        txtAddPrice.Location = new Point(270, 191);
-        txtAddPrice.Size = new Size(82, 23);
-        txtAddPrice.Text = "220";
+        btnBookSeat.BackColor = Color.FromArgb(47, 133, 90);
+        btnBookSeat.FlatStyle = FlatStyle.Flat;
+        btnBookSeat.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+        btnBookSeat.ForeColor = Color.White;
+        btnBookSeat.Location = new Point(792, 48);
+        btnBookSeat.Size = new Size(210, 34);
+        btnBookSeat.Text = "✅ Забронировать место";
+        btnBookSeat.Enabled = false;
+        btnBookSeat.Click += BtnBookSeat_Click;
 
-        btnAddTrip.BackColor = Color.FromArgb(47, 133, 90);
-        btnAddTrip.ForeColor = Color.White;
-        btnAddTrip.FlatStyle = FlatStyle.Flat;
-        btnAddTrip.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-        btnAddTrip.Location = new Point(14, 232);
-        btnAddTrip.Size = new Size(338, 34);
-        btnAddTrip.Text = "Сохранить поездку в базу данных";
-        btnAddTrip.Click += BtnAddTrip_Click;
+        grpBook.Controls.AddRange([lblSelectedTrip, lb1, txtBookName, lb2, txtBookPhone, lb3, numBookSeats, btnBookSeat]);
 
-        grpAddTrip.Controls.AddRange([lblSeats, numSeats, txtAddDist, txtAddPrice, btnAddTrip]);
+        ConfigureGrid(dgvTrips);
+        dgvTrips.Dock = DockStyle.Fill;
+        dgvTrips.SelectionChanged += DgvTrips_SelectionChanged;
 
-        // grpExperiment
-        grpExperiment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-        grpExperiment.Location = new Point(704, 354);
-        grpExperiment.Name = "grpExperiment";
-        grpExperiment.Size = new Size(368, 260);
-        grpExperiment.Text = "Вычислительный эксперимент (себестоимость)";
+        tabSearch.Controls.AddRange([dgvTrips, grpFilter, grpBook]);
 
-        AddFormRow(grpExperiment, "Маршрут:", txtExpRoute, 24, "Ижевск — Казань");
-        AddFormRow(grpExperiment, "Дистанция (км):", txtExpDist, 52, "390");
-        AddFormRow(grpExperiment, "Расход (л/100км):", txtExpCons, 80, "8.5");
-        AddFormRow(grpExperiment, "Цена (руб/л):", txtExpFuelPrice, 108, "58.5");
-        AddFormRow(grpExperiment, "Аморт. (руб/км):", txtExpDeprec, 136, "1.8");
+        // ==================== TAB 2: PUBLISH TRIP ====================
+        tabPublish.BackColor = Color.FromArgb(247, 249, 252);
+        tabPublish.Padding = new Padding(16);
+        tabPublish.Text = "➕ Опубликовать поездку";
 
-        var lblPass = new Label { AutoSize = true, Text = "Попутчиков (N):", Location = new Point(12, 166) };
-        numExpPassengers.Location = new Point(125, 163);
-        numExpPassengers.Minimum = 1;
-        numExpPassengers.Maximum = 6;
-        numExpPassengers.Value = 3;
-        numExpPassengers.Size = new Size(65, 23);
+        grpPublishCard.Location = new Point(20, 16);
+        grpPublishCard.Size = new Size(860, 340);
+        grpPublishCard.Text = "Данные новой поездки водителя";
 
-        btnCalcExperiment.BackColor = Color.FromArgb(43, 108, 176);
-        btnCalcExperiment.ForeColor = Color.White;
-        btnCalcExperiment.FlatStyle = FlatStyle.Flat;
-        btnCalcExperiment.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-        btnCalcExperiment.Location = new Point(200, 159);
-        btnCalcExperiment.Size = new Size(152, 30);
-        btnCalcExperiment.Text = "Рассчитать";
-        btnCalcExperiment.Click += BtnCalcExperiment_Click;
+        AddPair(grpPublishCard, "ФИО водителя:", txtPubDriver, 20, 34);
+        AddPair(grpPublishCard, "Телефон:", txtPubPhone, 440, 34);
+        AddPair(grpPublishCard, "Марка и модель авто:", txtPubCar, 20, 76, "Lada Vesta SW Cross");
+        AddPair(grpPublishCard, "Город отправления:", txtPubFrom, 440, 76, "Ижевск");
+        AddPair(grpPublishCard, "Город назначения:", txtPubTo, 20, 118, "Уфа");
+        AddPair(grpPublishCard, "Дата (ГГГГ-ММ-ДД):", txtPubDate, 440, 118, "2026-11-18");
+        AddPair(grpPublishCard, "Время выезда (ЧЧ:ММ):", txtPubTime, 20, 160, "07:30");
 
-        lblExpOutput.BorderStyle = BorderStyle.FixedSingle;
-        lblExpOutput.BackColor = Color.WhiteSmoke;
-        lblExpOutput.Location = new Point(12, 196);
-        lblExpOutput.Size = new Size(340, 54);
-        lblExpOutput.Text = "Нажмите «Рассчитать» для проведения эксперимента.";
+        var lpSeats = new Label { AutoSize = true, Text = "Свободных мест:", Location = new Point(440, 163) };
+        numPubSeats.Location = new Point(600, 160);
+        numPubSeats.Size = new Size(220, 24);
+        numPubSeats.Minimum = 1;
+        numPubSeats.Maximum = 8;
+        numPubSeats.Value = 3;
+        grpPublishCard.Controls.AddRange([lpSeats, numPubSeats]);
 
-        grpExperiment.Controls.AddRange([lblPass, numExpPassengers, btnCalcExperiment, lblExpOutput]);
+        AddPair(grpPublishCard, "Дистанция (км):", txtPubDist, 20, 202, "340");
+        AddPair(grpPublishCard, "Цена 1 места (руб.):", txtPubPrice, 440, 202, "850");
+
+        btnPublishTrip.BackColor = Color.FromArgb(47, 133, 90);
+        btnPublishTrip.FlatStyle = FlatStyle.Flat;
+        btnPublishTrip.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnPublishTrip.ForeColor = Color.White;
+        btnPublishTrip.Location = new Point(180, 260);
+        btnPublishTrip.Size = new Size(280, 38);
+        btnPublishTrip.Text = "🚀 Опубликовать маршрут в БД";
+        btnPublishTrip.Click += BtnPublishTrip_Click;
+
+        btnFillSample.Location = new Point(480, 260);
+        btnFillSample.Size = new Size(270, 38);
+        btnFillSample.Text = "Заполнить пример (Ижевск → Сарапул)";
+        btnFillSample.Click += BtnFillSample_Click;
+
+        grpPublishCard.Controls.AddRange([btnPublishTrip, btnFillSample]);
+        tabPublish.Controls.Add(grpPublishCard);
+
+        // ==================== TAB 3: COMPUTATIONAL EXPERIMENT ====================
+        tabExperiment.BackColor = Color.FromArgb(247, 249, 252);
+        tabExperiment.Padding = new Padding(12);
+        tabExperiment.Text = "📊 Вычислительный эксперимент";
+
+        grpExpParams.Dock = DockStyle.Top;
+        grpExpParams.Size = new Size(1100, 112);
+        grpExpParams.Text = "Параметры моделирования себестоимости и распределения затрат";
+
+        AddSmallField(grpExpParams, "Маршрут:", txtExpRoute, 16, 30, 155, "Ижевск — Казань");
+        AddSmallField(grpExpParams, "Дистанция (км):", txtExpDist, 265, 30, 90, "390");
+        AddSmallField(grpExpParams, "Расход (л/100км):", txtExpCons, 470, 30, 90, "8.5");
+
+        AddSmallField(grpExpParams, "Цена (руб/л):", txtExpFuelPrice, 16, 68, 155, "58.5");
+        AddSmallField(grpExpParams, "Аморт. (руб/км):", txtExpDeprec, 265, 68, 90, "1.8");
+        AddSmallField(grpExpParams, "Поездок в год:", txtExpTripsYear, 470, 68, 90, "40");
+
+        btnRunExp.BackColor = Color.FromArgb(43, 108, 176);
+        btnRunExp.FlatStyle = FlatStyle.Flat;
+        btnRunExp.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnRunExp.ForeColor = Color.White;
+        btnRunExp.Location = new Point(685, 28);
+        btnRunExp.Size = new Size(280, 62);
+        btnRunExp.Text = "▶ Провести вычислительный\nэксперимент";
+        btnRunExp.Click += BtnRunExp_Click;
+
+        grpExpParams.Controls.Add(btnRunExp);
+
+        lblExpSummary.Dock = DockStyle.Top;
+        lblExpSummary.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+        lblExpSummary.ForeColor = Color.FromArgb(30, 58, 95);
+        lblExpSummary.Padding = new Padding(4, 8, 4, 8);
+        lblExpSummary.Size = new Size(1100, 40);
+        lblExpSummary.Text = "Нажмите «Провести вычислительный эксперимент» для моделирования затрат (1..4 попутчика).";
+
+        var pnlExpBottom = new Panel { Dock = DockStyle.Bottom, Size = new Size(1100, 48) };
+        btnSaveExp.BackColor = Color.FromArgb(47, 133, 90);
+        btnSaveExp.FlatStyle = FlatStyle.Flat;
+        btnSaveExp.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+        btnSaveExp.ForeColor = Color.White;
+        btnSaveExp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnSaveExp.Location = new Point(800, 8);
+        btnSaveExp.Size = new Size(290, 34);
+        btnSaveExp.Text = "💾 Сохранить матрицу в БД SQLite";
+        btnSaveExp.Enabled = false;
+        btnSaveExp.Click += BtnSaveExp_Click;
+        pnlExpBottom.Controls.Add(btnSaveExp);
+
+        ConfigureGrid(dgvExpGrid);
+        dgvExpGrid.Dock = DockStyle.Fill;
+
+        tabExperiment.Controls.AddRange([dgvExpGrid, lblExpSummary, grpExpParams, pnlExpBottom]);
+
+        // ==================== TAB 4: BOOKINGS, AUDIT & EXPORT ====================
+        tabManage.BackColor = Color.FromArgb(247, 249, 252);
+        tabManage.Padding = new Padding(12);
+        tabManage.Text = "📋 Бронирования, аудит и экспорт";
+
+        pnlManageTop.Dock = DockStyle.Top;
+        pnlManageTop.Size = new Size(1100, 44);
+
+        btnRefreshManage.Location = new Point(0, 6);
+        btnRefreshManage.Size = new Size(150, 32);
+        btnRefreshManage.Text = "🔄 Обновить данные";
+        btnRefreshManage.Click += (_, _) => LoadManagementData();
+
+        btnCancelBooking.Location = new Point(160, 6);
+        btnCancelBooking.Size = new Size(210, 32);
+        btnCancelBooking.Text = "❌ Отменить выбранную бронь";
+        btnCancelBooking.Click += BtnCancelBooking_Click;
+
+        btnExportTrips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnExportTrips.Location = new Point(710, 6);
+        btnExportTrips.Size = new Size(185, 32);
+        btnExportTrips.Text = "📥 Экспорт поездок (CSV)";
+        btnExportTrips.Click += BtnExportTrips_Click;
+
+        btnExportBookings.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnExportBookings.Location = new Point(905, 6);
+        btnExportBookings.Size = new Size(195, 32);
+        btnExportBookings.Text = "📥 Экспорт броней (CSV)";
+        btnExportBookings.Click += BtnExportBookings_Click;
+
+        pnlManageTop.Controls.AddRange([btnRefreshManage, btnCancelBooking, btnExportTrips, btnExportBookings]);
+
+        splitManage.Dock = DockStyle.Fill;
+        splitManage.Orientation = Orientation.Horizontal;
+        splitManage.SplitterDistance = 285;
+
+        var grpB = new GroupBox { Dock = DockStyle.Fill, Text = "Реестр бронирований пассажиров" };
+        ConfigureGrid(dgvBookings);
+        dgvBookings.Dock = DockStyle.Fill;
+        grpB.Controls.Add(dgvBookings);
+        splitManage.Panel1.Controls.Add(grpB);
+
+        var grpA = new GroupBox { Dock = DockStyle.Fill, Text = "Журнал событий аудита системы (AuditLogs)" };
+        ConfigureGrid(dgvAudit);
+        dgvAudit.Dock = DockStyle.Fill;
+        grpA.Controls.Add(dgvAudit);
+        splitManage.Panel2.Controls.Add(grpA);
+
+        tabManage.Controls.AddRange([splitManage, pnlManageTop]);
 
         // statusStrip1
         statusStrip1.Items.Add(lblStatus);
-        statusStrip1.Location = new Point(0, 622);
-        statusStrip1.Name = "statusStrip1";
-        statusStrip1.Size = new Size(1084, 22);
-        lblStatus.Text = "База данных carpooling_v1.db подключена.";
+        lblStatus.Text = "Готово. База данных carpooling_v2.db подключена.";
 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1084, 644);
-        MinimumSize = new Size(980, 620);
-        Controls.AddRange([pnlHeader, grpSearch, dgvTrips, grpAddTrip, grpExperiment, statusStrip1]);
+        ClientSize = new Size(1140, 720);
+        MinimumSize = new Size(1060, 650);
+        Controls.AddRange([tabMain, pnlHeader, statusStrip1]);
         Font = new Font("Segoe UI", 9.5F);
         Name = "MainForm";
         StartPosition = FormStartPosition.CenterScreen;
-        Text = "Сервис поиска попутчиков — Версия 1.0 (Касимов Д.А., ИСП 31-9)";
+        Text = "Сервис поиска попутчиков — Версия 2.0 (Касимов Д.А., ИСП 31-9)";
 
         pnlHeader.ResumeLayout(false);
         pnlHeader.PerformLayout();
-        grpSearch.ResumeLayout(false);
-        grpSearch.PerformLayout();
+        tabMain.ResumeLayout(false);
+        tabSearch.ResumeLayout(false);
+        grpFilter.ResumeLayout(false);
+        grpFilter.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)dgvTrips).EndInit();
-        grpAddTrip.ResumeLayout(false);
-        grpAddTrip.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numSeats).EndInit();
-        grpExperiment.ResumeLayout(false);
-        grpExperiment.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numExpPassengers).EndInit();
+        grpBook.ResumeLayout(false);
+        grpBook.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numBookSeats).EndInit();
+        tabPublish.ResumeLayout(false);
+        grpPublishCard.ResumeLayout(false);
+        grpPublishCard.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numPubSeats).EndInit();
+        tabExperiment.ResumeLayout(false);
+        grpExpParams.ResumeLayout(false);
+        grpExpParams.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)dgvExpGrid).EndInit();
+        tabManage.ResumeLayout(false);
+        pnlManageTop.ResumeLayout(false);
+        splitManage.Panel1.ResumeLayout(false);
+        splitManage.Panel2.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)splitManage).EndInit();
+        splitManage.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)dgvBookings).EndInit();
+        ((System.ComponentModel.ISupportInitialize)dgvAudit).EndInit();
         statusStrip1.ResumeLayout(false);
         statusStrip1.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
 
-    private static void AddFormRow(GroupBox grp, string labelText, TextBox tb, int y, string defaultVal, int width = 227)
+    private static void ConfigureGrid(DataGridView dgv)
     {
-        var lbl = new Label { AutoSize = true, Text = labelText, Location = new Point(12, y) };
-        tb.Location = new Point(125, y - 3);
-        tb.Size = new Size(width, 23);
-        tb.Text = defaultVal;
-        grp.Controls.Add(lbl);
-        grp.Controls.Add(tb);
+        dgv.AllowUserToAddRows = false;
+        dgv.AllowUserToDeleteRows = false;
+        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        dgv.BackgroundColor = Color.White;
+        dgv.BorderStyle = BorderStyle.Fixed3D;
+        dgv.ColumnHeadersHeight = 32;
+        dgv.EnableHeadersVisualStyles = false;
+        dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 238, 245);
+        dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+        dgv.MultiSelect = false;
+        dgv.ReadOnly = true;
+        dgv.RowHeadersVisible = false;
+        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+    }
+
+    private static void AddPair(GroupBox grp, string labelText, TextBox tb, int x, int y, string def = "")
+    {
+        var lbl = new Label { AutoSize = true, Text = labelText, Location = new Point(x, y + 3) };
+        tb.Location = new Point(x + 160, y);
+        tb.Size = new Size(220, 24);
+        tb.Text = def;
+        grp.Controls.AddRange([lbl, tb]);
+    }
+
+    private static void AddSmallField(GroupBox grp, string labelText, TextBox tb, int x, int y, int width, string def)
+    {
+        var lbl = new Label { AutoSize = true, Text = labelText, Location = new Point(x, y + 3) };
+        tb.Location = new Point(x + 115, y);
+        tb.Size = new Size(width, 24);
+        tb.Text = def;
+        grp.Controls.AddRange([lbl, tb]);
     }
 }
