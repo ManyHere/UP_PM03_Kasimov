@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CarpoolingApp</AssemblyName>
+    <RootNamespace>CarpoolingApp</RootNamespace>
+    <Version>1.0.0</Version>
+    <Authors>Касимов Д.А.</Authors>
+    <Description>Сервис поиска попутчиков — ПМ.03 (ИСП 31-9)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>
